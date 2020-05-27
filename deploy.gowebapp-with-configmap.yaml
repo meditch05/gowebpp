@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: gowebapp
+  labels:
+    app: gowebapp
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gowebapp
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: gowebapp
+        tier: frontend
+    spec:
+      containers:
+      - name: gowebapp
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mysqlpwd
+              key: password
+        image: acr0505.azurecr.io/gowebapp:v1       
+        ports:
+        - containerPort: 80

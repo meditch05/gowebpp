@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: gowebapp-mysql
+  labels:
+    app: gowebapp-mysql
+    tier: backend
+spec:
+  replicas: 1
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gowebapp-mysql
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: gowebapp-mysql
+        tier: backend
+    spec:
+      containers:
+      - name: gowebapp-mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: mypassword
+        image: acr0505.azurecr.io/gowebapp-mysql:v1
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql
+      volumes:
+      -  name: mysql
+         persistentVolumeClaim:
+           claimName: azure-managed-disk
