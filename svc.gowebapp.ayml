@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-05-27T04:31:25Z"
+  labels:
+    app: gowebapp
+    tier: frontend
+  name: gowebapp
+  namespace: default
+  resourceVersion: "108462"
+  selfLink: /api/v1/namespaces/default/services/gowebapp
+  uid: 38d762c5-1401-4261-860e-0ae24bf1f914
+spec:
+  clusterIP: 10.0.184.83
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30584
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: gowebapp
+    tier: frontend
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 20.39.187.153
