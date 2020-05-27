@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-test
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: gowebapp.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: gowebapp
+          servicePort: 80
+  - host: nginx.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx  
+          servicePort: 80
